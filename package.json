@@ -1,0 +1,31 @@
+{
+  "name": "accord-examples",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "build": "tsc",
+    "bank": "node build/bank/pure.js",
+    "bank:effect": "node build/bank/with-effect.js",
+    "notifications": "node build/notifications/run.js pure",
+    "notifications:effect": "node build/notifications/run.js effect",
+    "durable": "node build/durable-bank/index.js",
+    "crm": "node build/crm/v1.js",
+    "crm:migrations": "node build/crm/migrations.js",
+    "test": "node --test build/test/*.test.js",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
+  },
+  "dependencies": {
+    "@marcelsud/accord": "^0.1.0",
+    "effect": "4.1.2"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "prettier": "3.9.10",
+    "typescript": "^7.0.2"
+  }
+}

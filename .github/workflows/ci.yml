@@ -1,0 +1,40 @@
+name: Examples
+on:
+  push:
+  pull_request:
+  schedule:
+    - cron: "23 7 * * 1"
+  repository_dispatch:
+    types: [accord-release]
+permissions:
+  contents: read
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npm run format:check
+      - run: npm run build
+      - run: npm test
+      - run: npm run bank
+      - run: npm run bank:effect
+      - run: npm run notifications
+      - run: npm run notifications:effect
+      - name: Run durable bank
+        run: |
+          db="$(mktemp /tmp/accord-durable-XXXXXX.sqlite)"
+          npm run durable -- "$db" deposit 100
+          npm run durable -- "$db" drain
+          npm run durable -- "$db" drain
+      - name: Run CRM and migrations
+        run: |
+          db="$(mktemp /tmp/accord-crm-XXXXXX.sqlite)"
+          npm run crm -- "$db" seed
+          npm run crm -- "$db" drain
+          npm run crm -- "$db" drain
+          npm run crm:migrations -- "$db"
