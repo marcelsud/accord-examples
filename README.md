@@ -28,7 +28,7 @@ npm run bank
 
 ## Accord compatibility
 
-These examples target `@marcelsud/accord@^0.1.0`, the version intended for publication. The package is not available from npm until Accord 0.1.0 is published; after publication, `npm ci` resolves it from the registry. The lockfile already uses the registry tarball URL; run `npm ci` after publication to refresh it with registry metadata.
+These examples target `@marcelsud/accord@^0.1.0`, which is published on npm. `npm ci` installs it from the registry using the committed lockfile.
 
 ## License
 
